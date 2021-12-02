@@ -1,40 +1,25 @@
+#include "libtcod.hpp"
+#include "Actor.hpp"
+int main() {
 
-#include <SDL.h>
-#include <libtcod.h>
+   //int playerx=40,playery=25;//nuestro actor posicion eje coordenadas
+  Actor player(25,25,'@',TCODColor::yellow);
 
-#include <cstdlib>
-
-int main(int argc, char** argv) {
-  auto params = TCOD_ContextParams{};
-  params.tcod_version = TCOD_COMPILEDVERSION;
-  params.argc = argc;
-  params.argv = argv;
-  params.vsync = 1;
-  params.sdl_window_flags = SDL_WINDOW_RESIZABLE;
-  params.window_title = "Libtcod Template Project";
-
-  auto console = tcod::Console{80, 25};
-  params.console = console.get();
-
-  auto context = tcod::new_context(params);
-
-  // Game loop.
-  while (true) {
-    // Rendering.
-    console.clear();
-    tcod::print(console, {0, 0}, "Hello World", TCOD_white, std::nullopt);
-    context->present(console);
-
-    // Handle input.
-    SDL_Event event;
-    SDL_WaitEvent(nullptr);
-    while (SDL_PollEvent(&event)) {
-      switch (event.type) {
-        case SDL_QUIT:
-          std::exit(EXIT_SUCCESS);
-          break;
-      }
-    }
-  }
-  return 0;
+   TCODConsole::initRoot(80,50,"Mi primer Rouguelite",false);//tamaño de la consola
+   while ( !TCODConsole::isWindowClosed() ) {
+       TCOD_key_t key;
+       TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS,&key,NULL);//configuración de las teclas
+       switch(key.vk) {
+           case TCODK_UP : player.y--; break;
+           case TCODK_DOWN : player.y++; break;
+           case TCODK_LEFT : player.x--; break;
+           case TCODK_RIGHT : player.x++; break;
+           default:break;
+       }
+       TCODConsole::root->clear();//se limpia la interfaz
+       //TCODConsole::root->putChar(player.x,player.y,'@');//se pone el personaje en la posicion
+       player.render();
+       TCODConsole::flush();
+   }
+   return 0;
 }
