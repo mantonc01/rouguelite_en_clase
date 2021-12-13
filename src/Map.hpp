@@ -8,14 +8,15 @@
 #define ALTO_MAPA 50
 
 struct Tile {
-   bool canWalk; // can we walk through this tile?
-   Tile() : canWalk(false) {}
+  bool explored;//esta explorado?
+  Tile():explored(false){};
 };
 
 
 class Map {
 public :
   int width, height;
+
 
   Map(int width, int height);
   ~Map();
@@ -28,6 +29,7 @@ public :
 protected :
 
   Tile *tiles;
+  TCODMap *map;
 
   void setWall(int x, int y);
   void setWalkable(int x, int y); //Para hacer dig!

@@ -3,11 +3,13 @@
 #include "Map.hpp"
 #include "Engine.hpp"
 
-int main() {
 Engine engine;
-   while ( !TCODConsole::isWindowClosed() ) {
-       engine.update();
-       engine.render();
-   }
-   return 0;
+
+int main() {
+
+  while ( !TCODConsole::isWindowClosed() ) {
+      engine.update();
+      engine.render();
+  }
+  return 0;
 }

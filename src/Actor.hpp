@@ -1,8 +1,7 @@
+
 #include "libtcod.hpp"
 
-
 #pragma once
-
 
 class Actor {
 public :
