@@ -1,14 +1,18 @@
 #include "Engine.hpp"
 
-Engine::Engine(){
+Engine::Engine(): fovRadius(FOVRADIOUS_INICIAL){
   TCODConsole::initRoot(ANCHO_MAPA,ALTO_MAPA,"Mi primer Rouguelite",false);
-  map = new Map(ANCHO_MAPA, ALTO_MAPA);
+
   //Jugador
   player = new Actor(25, 25, '@', TCODColor::yellow);
   actors.push(player);
   //Añadir un NPC:
   Actor* npc = new Actor(40, 25, 'O', TCODColor::white);
   actors.push(npc);
+  map = new Map(ANCHO_MAPA, ALTO_MAPA);
+
+
+
 
 }
 

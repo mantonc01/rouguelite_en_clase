@@ -4,6 +4,7 @@
 
 
 #pragma once
+#define FOVRADIOUS_INICIAL
 
 class Engine{
 public:
@@ -17,4 +18,4 @@ public:
   void render();
 };
 
-extern Engine engine;
+extern Engine engine; // como el singleton
