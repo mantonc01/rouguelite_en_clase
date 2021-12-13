@@ -1,6 +1,8 @@
 #include "libtcod.hpp"
 
 
+#pragma once
+
 
 class Actor {
 public :
@@ -11,3 +13,5 @@ public :
    Actor(int x, int y, int ch, const TCODColor &col);
    void render() const;
 };
+
+
