@@ -1,10 +1,10 @@
-#include "Map.hpp"
-#include "libtcod.hpp"
-#include "Engine.hpp"
+#include "main.hpp"
 
 
 static const int ROOM_MAX_SIZE = 12;
 static const int ROOM_MIN_SIZE = 6;
+
+static const int MAX_ROOM_MONSTERS = 3;
 
 
 class BspListener : public ITCODBspCallback {
@@ -108,9 +108,15 @@ void Map::createRoom(bool first, int x1, int y1, int x2, int y2){
   }else{
       //Añadir un NPC:
       TCODRandom *rng=TCODRandom::getInstance();
-      if(rng->getInt(0,2) == 0){
-        Actor* npc = new Actor((x1+x2)/2, (y1+y2)/2, 'O', TCODColor::red);
-        engine.actors.push(npc);
+      int numMonstruos = rng->getInt(0,MAX_ROOM_MONSTERS);
+      while(numMonstruos>0){
+        //aleatorio en X e y;
+        int xNew = rng->getInt(x1,x2);
+        int yNew = rng->getInt(y1,y2);
+        if(canWalk(xNew,yNew)){
+          addMonster(xNew, yNew);
+          numMonstruos--;
+        }
       }
   }
 };
@@ -133,6 +139,40 @@ void Map::computeFov(){
 };
 
 
+bool Map::canWalk(int x, int y) const{
+  if(isWall(x,y)){
+    return false;
+  }
+
+  for(Actor* actorAux : engine.actors){
+    if(actorAux->blocks && actorAux->x == x && actorAux->y == y){
+      return false;
+    }
+  }
+  return true;
+};
+
+
+void Map::addMonster(int x, int y){
+  TCODRandom* rng = TCODRandom::getInstance();
+  int aleatorioMostruo = rng->getInt(0, 5);
+
+  if(aleatorioMostruo == 0){
+
+    Actor* troll = new Actor(x, y, 'T', "Troll", TCODColor::darkerGreen);
+    troll->destructible = new MonsterDestructible(16, 1,"Troll muerto");
+    troll->attacker = new Attacker(4);
+    troll->ai = new MonsterAi();
+    engine.actors.push(troll);
+  } else{
+
+    Actor* ogro = new Actor(x, y, 'O', "Ogro", TCODColor::desaturatedGreen);
+    ogro->destructible = new MonsterDestructible(10,0,"Ogro muerto");
+    ogro->attacker = new Attacker(3);
+    ogro->ai = new MonsterAi();
+    engine.actors.push(ogro);
+  }
+};
 
 void Map::setWall(int x, int y){
   map->setProperties(x, y, false, false );

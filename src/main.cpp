@@ -1,9 +1,5 @@
-#include "libtcod.hpp"
-#include "Actor.hpp"
-#include "Map.hpp"
-#include "Engine.hpp"
-
-Engine engine;
+#include "main.hpp"
+Engine engine(ANCHO_PANTALLA,ALTO_PANTALLA);
 
 int main() {
 
@@ -11,5 +7,5 @@ int main() {
       engine.update();
       engine.render();
   }
-  return 0;
+  return  0;
 }
