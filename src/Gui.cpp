@@ -26,6 +26,10 @@ void Gui::render() {
 		engine.player->destructible->maxHp,
 		TCODColor::lightRed,TCODColor::darkerRed);
 
+  // blit la consola GUI en la consola raíz
+  TCODConsole::blit(con,0,0,engine.screenWidth,PANEL_HEIGHT,
+   TCODConsole::root,0,engine.screenHeight-PANEL_HEIGHT);
+
 	// dibuja el registro de mensajes
 	int y=1;
 	float colorCoef=0.4f;

@@ -26,6 +26,7 @@ public:
 
   int screenWidth;
   int screenHeight;
+  Gui *gui;
   TCOD_key_t lastKey;
 
   Engine(int screenWidth, int screenHeight);

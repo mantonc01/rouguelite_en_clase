@@ -14,12 +14,14 @@ Engine::Engine(int screenWidth, int screenHeight): fovRadius(FOVRADIOUS_INICIAL)
 
 
   map = new Map(ANCHO_MAPA, ALTO_MAPA);
+  gui = new Gui();
   map->computeFov();
 }
 
 Engine::~Engine( ){
   delete map;
   actors.clearAndDelete();
+  delete gui;
 }
 
 
@@ -62,6 +64,8 @@ void Engine::render(){
   }
   //re-renderizo el jugador:
   player->render();
+  // muestra las estadísticas del jugador
+  gui->render();
 
   //Renderizamos la GUI:
   TCODConsole::root->print(1,screenHeight-2, "HP(%s) : %d/%d",player->name.c_str(),(int)player->destructible->hp,(int)player->destructible->maxHp);
