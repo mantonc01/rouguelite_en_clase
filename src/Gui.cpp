@@ -94,7 +94,7 @@ void Gui::renderMouseLook() {
 			} else {
 				first=false;
 			}
-			strcat(buf,actor->name);
+			//strcat(buf,actor->name);
 		}
 	}
 	// muestra la lista de actores debajo de los cursores del mouse o
