@@ -20,7 +20,7 @@ public:
 
 
   Map* map;
-  TCODList<Actor*> actors;
+  TCODList<Actor *> actors;
   Actor* player;
   int fovRadius;
 
@@ -28,6 +28,7 @@ public:
   int screenHeight;
   Gui *gui;
   TCOD_key_t lastKey;
+  TCOD_mouse_t mouse;
 
   Engine(int screenWidth, int screenHeight);
   ~Engine();
